@@ -66,6 +66,7 @@ model VerificationToken {
 model KanbanBoard {
   id        Int       @id @default(autoincrement())
   name      String
+  description String? 
   createdAt DateTime  @default(now())
 
   // Relationship with User
