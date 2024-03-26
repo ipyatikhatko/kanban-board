@@ -15,32 +15,38 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import { createBoard } from '@/actions/boards.actions';
+import { editBoard } from '@/actions/boards.actions';
 import { useTransition } from 'react';
 import { Textarea } from '../ui/textarea';
 
 const formSchema = z.object({
   name: z.string().min(3, {
-    message: 'Board name must be at least 2 characters.',
+    message: 'Board name must be at least 3 characters.',
   }),
   description: z.string().optional(),
 });
 
-export default function CreateBoardForm() {
+interface EditBoardFormProps {
+  id: number;
+  values: z.infer<typeof formSchema>;
+}
+
+export default function EditBoardForm({ id, values }: EditBoardFormProps) {
+  const { name, description } = values;
   const [isPending, startTransition] = useTransition();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      name: '',
-      description: '',
+      name,
+      description,
     },
   });
 
   function onSubmit(values: z.infer<typeof formSchema>) {
     // ✅ This will be type-safe and validated.
     startTransition(() => {
-      createBoard(values);
+      editBoard(id, { ...values }, { revalidatePath: `/boards/${id}/edit` });
     });
   }
 
@@ -80,7 +86,7 @@ export default function CreateBoardForm() {
           )}
         />
         <Button disabled={isPending} type='submit'>
-          Submit
+          Save
         </Button>
       </form>
     </Form>
