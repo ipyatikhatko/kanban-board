@@ -1,7 +1,7 @@
 'use client';
-import Header from '@/components/layout/header';
-import MobileNav from '@/components/layout/mobile-nav';
-import Sidebar from '@/components/layout/sidebar';
+import Header from '@/components/ui/layout/header';
+import MobileNav from '@/components/ui/layout/mobile-nav';
+import Sidebar from '@/components/ui/layout/sidebar';
 import { ReactNode } from 'react';
 
 export default function ProtectedLayout({ children }: { children: ReactNode }) {

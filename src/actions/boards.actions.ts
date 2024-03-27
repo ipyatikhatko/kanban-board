@@ -88,10 +88,10 @@ export const editBoard = async (
   }
 
   if (nextOptions?.revalidatePath) {
-    revalidatePath('/boards');
+    revalidatePath(nextOptions.revalidatePath);
   }
 
   if (nextOptions?.redirect) {
-    redirect('/boards');
+    redirect(nextOptions.redirect);
   }
 };

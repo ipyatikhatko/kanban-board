@@ -1,5 +1,5 @@
 import React from 'react';
-import HeaderProfile from '@/components/layout/header-profile';
+import HeaderProfile from '@/components/ui/layout/header-profile';
 import { RiSearch2Line } from 'react-icons/ri';
 
 interface Props {}

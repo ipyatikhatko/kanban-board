@@ -1,5 +1,5 @@
 import React from 'react';
-import SidebarNavItem from '@/components/layout/sidebar-nav-item';
+import SidebarNavItem from '@/components/ui/layout/sidebar-nav-item';
 import { usePathname } from 'next/navigation';
 import {
   RiDashboardLine,
