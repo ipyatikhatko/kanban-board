@@ -11,7 +11,7 @@ export default function ProtectedLayout({ children }: { children: ReactNode }) {
       <section className='flex min-w-0 flex-1 flex-col'>
         <Header />
         <main className='flex-1 overflow-auto bg-slate-50 px-4 pt-4'>
-          {children}
+          <div className='mx-auto max-w-screen-xl'>{children}</div>
         </main>
       </section>
       <MobileNav />

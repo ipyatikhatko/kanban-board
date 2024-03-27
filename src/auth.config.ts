@@ -2,6 +2,10 @@ import type { NextAuthConfig } from 'next-auth';
 
 export const authOptions = {
   callbacks: {
+    session({ session, token }) {
+      session.user.id = token.sub!;
+      return session;
+    },
     authorized({ auth, request: { nextUrl } }) {
       const isLoggedIn = !!auth?.user;
       const isIndexPage = nextUrl.pathname === '/';
