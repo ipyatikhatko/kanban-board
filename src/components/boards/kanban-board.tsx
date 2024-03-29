@@ -1,28 +1,47 @@
 'use client';
 
-import React, { useState } from 'react';
-import {
-  DragDropContext,
-  Droppable,
-  Draggable,
-  DropResult,
-} from 'react-beautiful-dnd';
+import dynamic from 'next/dynamic';
+
+const DragDropContext = dynamic(
+  () =>
+    import('react-beautiful-dnd').then((mod) => {
+      return mod.DragDropContext;
+    }),
+  { ssr: false }
+);
+const Droppable = dynamic(
+  () =>
+    import('react-beautiful-dnd').then((mod) => {
+      return mod.Droppable;
+    }),
+  { ssr: false }
+);
+const Draggable = dynamic(
+  () =>
+    import('react-beautiful-dnd').then((mod) => {
+      return mod.Draggable;
+    }),
+  { ssr: false }
+);
+
+import React, { useCallback, useState } from 'react';
 import {
   KanbanBoard as KanbanBoardType,
   Column as ColumnType,
   Task as TaskType,
 } from '@prisma/client';
-import { RiAddFill, RiInsertRowTop, RiInsertColumnRight } from 'react-icons/ri';
+import { RiAddFill, RiInsertColumnRight } from 'react-icons/ri';
 import { Button } from '../ui/button';
 import CreateColumnDialog from '../columns/create-column-dialog';
 import CreateTaskDialog from '../tasks/create-task-dialog';
 import clsx from 'clsx';
+import { DropResult } from 'react-beautiful-dnd';
 
-interface ColumnWithTasks extends ColumnType {
+export interface ColumnWithTasks extends ColumnType {
   tasks: TaskType[];
 }
 
-interface BoardWithColumns extends KanbanBoardType {
+export interface BoardWithColumns extends KanbanBoardType {
   columns: ColumnWithTasks[];
 }
 
@@ -35,31 +54,30 @@ const KanbanBoard: React.FC<KanbanBoardProps> = ({ board, onDragEnd }) => {
   const [createColumnDialog, setCreateColumnDialog] = useState(false);
   // Store columnId in createTask to use it in modal action and as modal open state
   const [createTask, setCreateTask] = useState<ColumnType['id'] | null>(null);
+
   const handleDragEnd = (result: DropResult) => {
+    if (!result.destination) return; // Dropped outside the list
+
     onDragEnd(result);
   };
 
   const onAddColumn = () => setCreateColumnDialog(true);
 
   return (
-    <section className='mt-4 flex h-[70vh] gap-2 divide-x divide-slate-200 rounded-lg border border-slate-200 bg-white p-2 shadow-inner '>
+    <section className='mt-4 flex gap-2 rounded-lg bg-slate-100 p-2 shadow-sm'>
       <DragDropContext onDragEnd={handleDragEnd}>
         {board.columns.map((column) => (
-          <div
-            className='flex h-full w-60 flex-col pl-2 first:pl-0'
-            key={column.id}
-          >
-            <div className='rounded-lg p-2'>
+          <div className='flex w-60 flex-col' key={column.id}>
+            <div className='pb-2'>
               <h3 className='text-lg font-bold text-slate-500'>
                 {column.name}
               </h3>
             </div>
-            <hr className='mb-2 h-px border-0 bg-slate-200' />
             <div className='flex flex-1 flex-col gap-2'>
               <Droppable droppableId={String(column.id)} type='TASK'>
-                {(provided) => (
+                {(provided, snapshot) => (
                   <div
-                    className='flex h-full flex-col gap-2'
+                    className='flex h-[60vh] flex-col overflow-auto rounded-lg border border-slate-200 bg-slate-50 p-2 shadow-inner'
                     {...provided.droppableProps}
                     ref={provided.innerRef}
                   >
@@ -67,7 +85,7 @@ const KanbanBoard: React.FC<KanbanBoardProps> = ({ board, onDragEnd }) => {
                       <Draggable
                         key={task.id}
                         draggableId={String(task.id)}
-                        index={index}
+                        index={index + 1} //beacause they start from 1 in db
                       >
                         {(provided, snapshot) => (
                           <div
@@ -75,7 +93,7 @@ const KanbanBoard: React.FC<KanbanBoardProps> = ({ board, onDragEnd }) => {
                             {...provided.draggableProps}
                             {...provided.dragHandleProps}
                             className={clsx(
-                              'rounded-md border bg-gray-50 py-2 shadow-sm',
+                              'mb-2 rounded-md border border-slate-100 bg-white py-2 shadow-sm',
                               {
                                 'border-slate-300': snapshot.isDragging,
                               }
@@ -115,7 +133,7 @@ const KanbanBoard: React.FC<KanbanBoardProps> = ({ board, onDragEnd }) => {
         ))}
         <div
           onClick={onAddColumn}
-          className='group grid h-full w-40 cursor-pointer place-content-center rounded-lg !border border-slate-200 bg-slate-50 shadow-inner hover:shadow-sm'
+          className='group grid w-40 cursor-pointer place-content-center rounded-lg border border-slate-200 bg-slate-50 shadow-inner hover:shadow-sm'
         >
           <span className='inline-flex flex-col items-center text-sm text-slate-400 group-hover:text-slate-500'>
             <RiInsertColumnRight size={25} />

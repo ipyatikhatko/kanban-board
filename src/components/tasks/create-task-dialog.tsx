@@ -32,9 +32,8 @@ import {
 } from '../ui/dialog';
 import { useTransition } from 'react';
 import { DialogProps } from '@radix-ui/react-alert-dialog';
-import { editColumn } from '@/actions/columns.actions';
-import { revalidatePath } from 'next/cache';
 import { Column } from '@prisma/client';
+import { createTaskInColumn } from '@/actions/tasks.actions';
 
 const formSchema = z.object({
   title: z.string().min(3, {
@@ -68,11 +67,9 @@ export default function CreateTaskDialog({
   function onSubmit({ column, ...values }: z.infer<typeof formSchema>) {
     // ✅ This will be type-safe and validated.
     startTransition(() => {
-      editColumn(parseInt(column), { tasks: { create: { ...values } } }).then(
-        () => {
-          props.onOpenChange && props.onOpenChange(false);
-        }
-      );
+      createTaskInColumn(parseInt(column), values).then(() => {
+        props.onOpenChange && props.onOpenChange(false);
+      });
     });
   }
   return (

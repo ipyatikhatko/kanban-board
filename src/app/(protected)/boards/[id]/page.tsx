@@ -1,9 +1,11 @@
+import { updateKanbanBoardFromDropResult } from '@/actions/kanban.actions';
 import BoardHeaderInfo from '@/components/boards/board-header-info';
 import KanbanBoard from '@/components/boards/kanban-board';
 import { getUserBoardById } from '@/lib/api/boards';
-import { redirect } from 'next/dist/server/api-utils';
+import { revalidatePath } from 'next/cache';
 import { notFound } from 'next/navigation';
 import { DropResult } from 'react-beautiful-dnd';
+
 
 interface BoardPageProps {
   params: {
@@ -13,8 +15,9 @@ interface BoardPageProps {
 }
 
 export default async function BoardPage({ params: { id } }: BoardPageProps) {
+
   const board = await getUserBoardById(parseInt(id), {
-    columns: { include: { tasks: true } },
+    columns: { include: { tasks: { orderBy: { orderIndex: 'asc' } } } },
   });
 
   if (!board) {
@@ -25,7 +28,8 @@ export default async function BoardPage({ params: { id } }: BoardPageProps) {
 
   const handleDragEnd = async (result: DropResult) => {
     'use server';
-    console.log(result);
+    await updateKanbanBoardFromDropResult(result, board);
+    revalidatePath(`/boards/${id}`);
   };
 
   return (
