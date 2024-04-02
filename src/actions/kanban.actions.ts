@@ -102,37 +102,24 @@ export const updateKanbanBoardFromDropResult = async (
       });
       const isDestinationLastIndex = destinationIndex > tasksCount;
       updateTaskOrderIndex();
-      // Update tasks order in destinationColumn
-      await prisma.task.updateMany({
-        where: {
-          columnId: {
-            equals: destinationColumnId,
-          },
-          id: {
-            not: {
-              equals: dragedTaskId,
+
+      if(!isDestinationLastIndex) {
+        // Update tasks order in destinationColumn
+        await prisma.task.updateMany({
+          where: {
+            columnId: { equals: destinationColumnId },
+            id: { not: { equals: dragedTaskId } },
+            orderIndex: {
+              gte: destinationIndex,
             },
           },
-          orderIndex: {
-            ...(isDestinationLastIndex
-              ? {
-                  gte: destinationIndex,
-                }
-              : {
-                  lte: destinationIndex,
-                }),
+          data: {
+            orderIndex: {
+              increment: 1
+            },
           },
-        },
-        data: {
-          orderIndex: {
-            ...(isDestinationLastIndex
-              ? { increment: 1 }
-              : {
-                  decrement: 1,
-                }),
-          },
-        },
-      });
+        });
+      }
       // Update tasks orderIndex in sourceColumn when task moved to other column
       await prisma.task.updateMany({
         where: {
