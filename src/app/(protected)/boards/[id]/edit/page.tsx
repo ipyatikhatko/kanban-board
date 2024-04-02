@@ -10,8 +10,8 @@ export default async function EditBoardPage({
 
   return (
     <>
+      <h1 className='text-xl text-slate-600 lg:text-2xl'>Edit board</h1>
       <hr className='my-4' />
-      <h1 className='mb-4 text-xl text-slate-600 lg:text-2xl'>Edit board</h1>
       <section>
         <EditBoardForm
           id={parseInt(id)}
