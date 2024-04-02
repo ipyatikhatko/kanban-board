@@ -77,7 +77,7 @@ export const updateKanbanBoardFromDropResult = async (
 
     // if task destination in the same column
     if (destinationColumnId === sourceColumnId) {
-      const isSwap = destinationIndex - sourceIndex <= 1;
+      const isSwap = Math.abs(sourceIndex - destinationIndex) === 1;
 
       if (isSwap) {
         await prisma.task.updateMany({
