@@ -8,15 +8,17 @@ import { Suspense } from 'react';
 export default async function BoardsPage() {
   return (
     <>
-      <div className='mb-4 flex items-center justify-between'>
+      <div className='mb-4 flex items-center justify-between px-4'>
         <h1 className='text-2xl font-bold text-slate-700'>Boards</h1>
         <Link href='/boards/create'>
           <Button>Create board</Button>
         </Link>
       </div>
-      <Suspense fallback={<BoardsListSkeleton />}>
-        <BoardsList />
-      </Suspense>
+      <div className='px-4'>
+        <Suspense fallback={<BoardsListSkeleton />}>
+          <BoardsList />
+        </Suspense>
+      </div>
     </>
   );
 }

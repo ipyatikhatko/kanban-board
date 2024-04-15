@@ -6,7 +6,6 @@ import { revalidatePath } from 'next/cache';
 import { notFound } from 'next/navigation';
 import { DropResult } from 'react-beautiful-dnd';
 
-
 interface BoardPageProps {
   params: {
     id: string;
@@ -15,7 +14,6 @@ interface BoardPageProps {
 }
 
 export default async function BoardPage({ params: { id } }: BoardPageProps) {
-
   const board = await getUserBoardById(parseInt(id), {
     columns: { include: { tasks: { orderBy: { orderIndex: 'asc' } } } },
   });
@@ -26,12 +24,6 @@ export default async function BoardPage({ params: { id } }: BoardPageProps) {
 
   const { name, description, createdAt } = board;
 
-  const handleDragEnd = async (result: DropResult) => {
-    'use server';
-    await updateKanbanBoardFromDropResult(result, board);
-    revalidatePath(`/boards/${id}`);
-  };
-
   return (
     <>
       <BoardHeaderInfo
@@ -39,7 +31,7 @@ export default async function BoardPage({ params: { id } }: BoardPageProps) {
         description={description}
         createdAt={createdAt}
       />
-      <KanbanBoard board={board} onDragEnd={handleDragEnd} />
+      <KanbanBoard board={board} />
     </>
   );
 }

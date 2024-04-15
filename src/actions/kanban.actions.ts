@@ -2,13 +2,13 @@
 
 import { DropResult } from 'react-beautiful-dnd';
 import prisma from '@/lib/prisma';
-import { BoardWithColumns } from '@/components/boards/kanban-board';
 import { Prisma } from '@prisma/client';
+import { revalidatePath } from 'next/cache';
 
 // Function to update the Kanban board based on the drop result
 export const updateKanbanBoardFromDropResult = async (
-  result: DropResult,
-  board: BoardWithColumns
+  boardId: number,
+  result: DropResult
 ) => {
   try {
     const { destination, source, draggableId } = result;
@@ -103,7 +103,7 @@ export const updateKanbanBoardFromDropResult = async (
       const isDestinationLastIndex = destinationIndex > tasksCount;
       updateTaskOrderIndex();
 
-      if(!isDestinationLastIndex) {
+      if (!isDestinationLastIndex) {
         // Update tasks order in destinationColumn
         await prisma.task.updateMany({
           where: {
@@ -115,7 +115,7 @@ export const updateKanbanBoardFromDropResult = async (
           },
           data: {
             orderIndex: {
-              increment: 1
+              increment: 1,
             },
           },
         });
@@ -140,6 +140,7 @@ export const updateKanbanBoardFromDropResult = async (
         },
       });
     }
+    revalidatePath(`/boards/${boardId}`);
   } catch (error) {
     console.error('Error updating Kanban board from drop result:', error);
     throw new Error('Failed to update Kanban board from drop result');

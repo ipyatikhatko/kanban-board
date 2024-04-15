@@ -14,7 +14,7 @@ export default function BoardHeaderInfo({
   createdAt,
 }: BoardHeaderInfoProps) {
   return (
-    <section>
+    <section className='px-4'>
       <h1 className='text-2xl text-slate-600 lg:text-4xl'>{name}</h1>
       <p
         className={clsx('text-slate-400', {
