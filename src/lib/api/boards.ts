@@ -1,7 +1,7 @@
 import { auth } from '@/auth';
 import { unstable_noStore } from 'next/cache';
 import prisma from '../prisma';
-import { KanbanBoard, Prisma } from '@prisma/client';
+import { Prisma } from '@prisma/client';
 
 const getSession = async () => {
   const session = await auth();
@@ -28,33 +28,6 @@ export const getUserBoards = async () => {
     throw new Error('Database Error');
   }
 };
-
-// export const getUserBoardById = async (
-//   id: number,
-//   include?: Prisma.KanbanBoardInclude
-// ) => {
-//   unstable_noStore();
-//   const session = await getSession();
-//   try {
-//     const board = await prisma.kanbanBoard.findFirst({
-//       where: {
-//         ownerId: {
-//           equals: session.user.id,
-//         },
-//         id: {
-//           equals: id,
-//         },
-//       },
-//       include,
-//     });
-//     await new Promise((r) => setTimeout(r, 2000));
-//     return board;
-//   } catch (error) {
-//     throw new Error('Database Error');
-//   }
-// };
-
-// type ExtractInclude<T> = T extends { include: infer U } ? U : never;
 
 export const getUserBoardById = async <
   T extends Prisma.KanbanBoardInclude | undefined,
