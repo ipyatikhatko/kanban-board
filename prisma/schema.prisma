@@ -79,6 +79,7 @@ model KanbanBoard {
 model Column {
   id          Int       @id @default(autoincrement())
   name        String
+  description String? 
   orderIndex  Int       @default(autoincrement())
   createdAt   DateTime  @default(now())
 

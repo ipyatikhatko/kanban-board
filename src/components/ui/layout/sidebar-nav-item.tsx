@@ -3,7 +3,7 @@ import clsx from 'clsx';
 import Link, { LinkProps } from 'next/link';
 import React from 'react';
 import { IconType } from 'react-icons/lib';
-import withTooltip from '../ui/with-tooltip';
+import withTooltip from '../with-tooltip';
 
 interface Props extends LinkProps {
   icon: IconType;

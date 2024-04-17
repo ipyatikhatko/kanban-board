@@ -1,7 +1,7 @@
 'use client';
-import Header from '@/components/layout/header';
-import MobileNav from '@/components/layout/mobile-nav';
-import Sidebar from '@/components/layout/sidebar';
+import Header from '@/components/ui/layout/header';
+import MobileNav from '@/components/ui/layout/mobile-nav';
+import Sidebar from '@/components/ui/layout/sidebar';
 import { ReactNode } from 'react';
 
 export default function ProtectedLayout({ children }: { children: ReactNode }) {
@@ -10,7 +10,7 @@ export default function ProtectedLayout({ children }: { children: ReactNode }) {
       <Sidebar />
       <section className='flex min-w-0 flex-1 flex-col'>
         <Header />
-        <main className='flex-1 overflow-auto bg-slate-50 px-4 pt-4'>
+        <main className='flex-1 overflow-auto bg-slate-50 pt-4'>
           <div className='mx-auto max-w-screen-xl'>{children}</div>
         </main>
       </section>

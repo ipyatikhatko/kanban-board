@@ -1,11 +1,13 @@
 'use server';
 
 import { auth } from '@/auth';
+import { BoardWithColumns } from '@/components/boards/kanban-board';
 import prisma from '@/lib/prisma';
 import { Prisma } from '@prisma/client';
 import { equal } from 'assert';
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
+import { DropResult } from 'react-beautiful-dnd';
 
 type CreateBoard = {
   name: string;
@@ -88,10 +90,10 @@ export const editBoard = async (
   }
 
   if (nextOptions?.revalidatePath) {
-    revalidatePath('/boards');
+    revalidatePath(nextOptions.revalidatePath);
   }
 
   if (nextOptions?.redirect) {
-    redirect('/boards');
+    redirect(nextOptions.redirect);
   }
 };

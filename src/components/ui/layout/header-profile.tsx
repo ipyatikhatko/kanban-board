@@ -7,7 +7,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
+import { Avatar, AvatarFallback, AvatarImage } from '../avatar';
 import { RiLogoutBoxLine } from 'react-icons/ri';
 import { useSession, signOut } from 'next-auth/react';
 import clsx from 'clsx';
@@ -17,7 +17,7 @@ export default function HeaderProfile() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger className='group flex items-center gap-4 outline-none'>
-        <Avatar className='radix-state-open:shadow h-8 w-8 group-hover:shadow'>
+        <Avatar className='h-8 w-8 group-hover:shadow radix-state-open:shadow'>
           <AvatarImage src={session?.user?.image || ''} />
           <AvatarFallback className='bg-gradient-to-tr from-slate-600 to-slate-200'></AvatarFallback>
         </Avatar>
