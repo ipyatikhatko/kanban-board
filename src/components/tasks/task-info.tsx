@@ -6,6 +6,7 @@ import { DateTime } from 'luxon';
 import { GetTaskInfoType } from '@/lib/api/tasks';
 import { notFound } from 'next/navigation';
 import TaskDeescriptionEditor from '@/components/tasks/task-description-editor';
+import TaskPageTitle from './task-page-title';
 
 interface Props {
   task: GetTaskInfoType;
@@ -14,12 +15,6 @@ interface Props {
 
 function TaskInfo(props: Props) {
   const { task } = props;
-
-  const titleRef = useRef<HTMLHeadingElement>(null);
-
-  const handleUpdateTitleOnBlur = () => {
-    //TODO: Update the task title with useTransition and server action
-  };
 
   if (!task) {
     return notFound();
@@ -31,17 +26,7 @@ function TaskInfo(props: Props) {
 
   return (
     <>
-      <div className='group relative flex w-2/3 items-start gap-2 pt-4'>
-        <h1
-          ref={titleRef}
-          contentEditable
-          onBlur={handleUpdateTitleOnBlur}
-          className='w-full cursor-pointer rounded bg-transparent p-2 py-1 text-3xl font-bold text-slate-600 outline-none hover:bg-slate-100 focus-visible:bg-slate-100'
-        >
-          {task.title}
-        </h1>
-        <RiPencilFill className='absolute -right-6 top-4 text-slate-300 opacity-0 transition-opacity group-hover:opacity-100' />
-      </div>
+      <TaskPageTitle title={task.title} taskId={task.id} />
       <hr className='mt-2 h-px border-0 bg-slate-200' />
       <div className='mt-4 flex items-center gap-2 text-sm text-slate-500'>
         <RiTimeFill size={15} />
