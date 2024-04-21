@@ -4,6 +4,7 @@ import { SessionProvider } from 'next-auth/react';
 import { auth } from '@/auth';
 import { quicksand } from '@/lib/fonts';
 import { unstable_noStore } from 'next/cache';
+import QueryClientProvider from '@/components/providers/query-client';
 
 export const metadata: Metadata = {
   title: 'Kanban board',
@@ -23,10 +24,12 @@ export default async function RootLayout({
   const session = await getSession();
 
   return (
-    <html lang='en'>
-      <SessionProvider session={session}>
-        <body className={quicksand.className}>{children}</body>
-      </SessionProvider>
-    </html>
+    <QueryClientProvider>
+      <html lang='en'>
+        <SessionProvider session={session}>
+          <body className={quicksand.className}>{children}</body>
+        </SessionProvider>
+      </html>
+    </QueryClientProvider>
   );
 }

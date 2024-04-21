@@ -10,8 +10,8 @@ export default function ProtectedLayout({ children }: { children: ReactNode }) {
       <Sidebar />
       <section className='flex min-w-0 flex-1 flex-col'>
         <Header />
-        <main className='flex-1 overflow-auto bg-slate-50 pt-4'>
-          <div className='mx-auto max-w-screen-xl'>{children}</div>
+        <main className='flex-1 overflow-auto bg-slate-50 pl-2 lg:pl-4'>
+          <div className='h-full'>{children}</div>
         </main>
       </section>
       <MobileNav />

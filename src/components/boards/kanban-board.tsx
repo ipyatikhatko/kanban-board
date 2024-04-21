@@ -69,10 +69,10 @@ const KanbanBoard: React.FC<KanbanBoardProps> = ({ board }) => {
   const onCreateTask = (columnId: number) => setCreateTask(columnId);
 
   return (
-    <section className='relative mt-4 flex snap-x snap-mandatory overflow-auto rounded border border-slate-200 bg-white pb-2 pr-2 pt-2 shadow-inner'>
+    <section className='relative mt-4 flex snap-x snap-mandatory overflow-auto rounded border border-slate-200 bg-white pb-2 pr-2 pt-2 shadow-inner divide-x divide-slate-100 gap-2'>
       {isPending && (
-        <div className='absolute bottom-0 left-0 top-0 flex w-full items-center justify-center bg-slate-500/30'>
-          <RiLoader5Fill size={30} className='animate-spin text-slate-700' />
+        <div className='absolute bottom-0 backdrop-blur-[1px] left-0 top-0 flex w-full items-center justify-center bg-slate-300/40'>
+          <RiLoader5Fill size={30} className='animate-spin text-slate-500' />
         </div>
       )}
 
