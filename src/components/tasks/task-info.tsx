@@ -1,9 +1,9 @@
 'use client';
-import React, { useRef } from 'react';
+import React, { useRef, useTransition } from 'react';
 import { RiPencilFill, RiTimeFill } from 'react-icons/ri';
 import TaskStatusDropdown from './task-status-dropdown';
 import { DateTime } from 'luxon';
-import { GetTaskInfoType } from '@/lib/api/tasks';
+import { GetTaskInfoType, updateTask } from '@/lib/api/tasks';
 import { notFound } from 'next/navigation';
 import TaskDeescriptionEditor from '@/components/tasks/task-description-editor';
 import TaskPageTitle from './task-page-title';
@@ -15,6 +15,7 @@ interface Props {
 
 function TaskInfo(props: Props) {
   const { task } = props;
+  const [desecriptionLoading, startDescriptionTransition] = useTransition();
 
   if (!task) {
     return notFound();
@@ -23,6 +24,13 @@ function TaskInfo(props: Props) {
   const createdAt = DateTime.fromJSDate(task.createdAt).toFormat(
     'DD MMM hh:mm:ss'
   );
+
+  const handleUpdateDescription = (mdStr: string) => {
+    console.log(mdStr);
+    startDescriptionTransition(() => {
+      updateTask(task.id, { description: mdStr });
+    });
+  };
 
   return (
     <section className='flex h-full flex-1 flex-col overflow-auto pb-4 pr-2 lg:pr-4'>
@@ -41,7 +49,10 @@ function TaskInfo(props: Props) {
           boardId={task.column.boardId}
         />
       </div>
-      <TaskDeescriptionEditor mdStr={'## Hello world'} />
+      <TaskDeescriptionEditor
+        onUpdateDescription={handleUpdateDescription}
+        mdStr={task.description || ''}
+      />
     </section>
   );
 }
