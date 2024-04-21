@@ -41,6 +41,7 @@ export const updateTask = async (
     });
     revalidatePath(`/tasks/${id}`);
   } catch (error) {
+    console.log(error);
     throw new Error('Database Error');
   }
 };

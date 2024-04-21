@@ -24,9 +24,7 @@ export default async function TaskPage(props: PageProps) {
 
   return (
     <div className='flex h-full'>
-      <section className='flex h-full flex-1 flex-col overflow-auto pb-4 pr-2 lg:pr-4'>
-        <TaskInfo task={task} />
-      </section>
+      <TaskInfo task={task} />
       <section className='h-full w-[400px] border-l bg-white'>
         <div className='flex items-center gap-2 p-2 text-slate-400'>
           <RiChat1Fill size={25} />

@@ -25,7 +25,7 @@ function TaskInfo(props: Props) {
   );
 
   return (
-    <>
+    <section className='flex h-full flex-1 flex-col overflow-auto pb-4 pr-2 lg:pr-4'>
       <TaskPageTitle title={task.title} taskId={task.id} />
       <hr className='mt-2 h-px border-0 bg-slate-200' />
       <div className='mt-4 flex items-center gap-2 text-sm text-slate-500'>
@@ -36,12 +36,13 @@ function TaskInfo(props: Props) {
       </div>
       <div className='mb-4 mt-2'>
         <TaskStatusDropdown
+          taskId={task.id}
           initialStatus={task.columnId}
           boardId={task.column.boardId}
         />
       </div>
       <TaskDeescriptionEditor mdStr={'## Hello world'} />
-    </>
+    </section>
   );
 }
 
