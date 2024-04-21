@@ -26,7 +26,6 @@ function TaskInfo(props: Props) {
   );
 
   const handleUpdateDescription = (mdStr: string) => {
-    console.log(mdStr);
     startDescriptionTransition(() => {
       updateTask(task.id, { description: mdStr });
     });
