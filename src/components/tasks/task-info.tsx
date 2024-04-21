@@ -1,5 +1,5 @@
 'use client';
-import React, { useRef, useTransition } from 'react';
+import React, { useRef, useState, useTransition } from 'react';
 import { RiPencilFill, RiTimeFill } from 'react-icons/ri';
 import TaskStatusDropdown from './task-status-dropdown';
 import { DateTime } from 'luxon';
@@ -15,6 +15,7 @@ interface Props {
 
 function TaskInfo(props: Props) {
   const { task } = props;
+  const [editDescription, setEditDescription] = useState(false);
   const [desecriptionLoading, startDescriptionTransition] = useTransition();
 
   if (!task) {
@@ -27,7 +28,9 @@ function TaskInfo(props: Props) {
 
   const handleUpdateDescription = (mdStr: string) => {
     startDescriptionTransition(() => {
-      updateTask(task.id, { description: mdStr });
+      updateTask(task.id, { description: mdStr }).then(() =>
+        setEditDescription(false)
+      );
     });
   };
 
@@ -49,6 +52,9 @@ function TaskInfo(props: Props) {
         />
       </div>
       <TaskDeescriptionEditor
+        editMode={editDescription}
+        onEditModeChange={setEditDescription}
+        loading={desecriptionLoading}
         onUpdateDescription={handleUpdateDescription}
         mdStr={task.description || ''}
       />

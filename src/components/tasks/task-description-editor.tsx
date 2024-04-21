@@ -3,19 +3,27 @@ import { ReactNode, useState } from 'react';
 import MarkdownEditor from '@uiw/react-markdown-editor';
 import MarkdownPreview from '@uiw/react-markdown-preview';
 import { Button } from '../ui/button';
-import { RiMarkdownLine, RiPencilFill } from 'react-icons/ri';
+import { RiLoader5Fill, RiMarkdownLine, RiPencilFill } from 'react-icons/ri';
 import Link from 'next/link';
 
 interface Props {
   mdStr: string;
-  preview?: boolean;
+  editMode: boolean;
+  loading?: boolean;
   renderSubmit?: (mdStr: string) => ReactNode;
+  onEditModeChange: (value: boolean) => void;
   onUpdateDescription?: (mdStr: string) => void;
 }
 
 const TaskDescriptionEditor = (props: Props) => {
-  const { mdStr, preview = true, renderSubmit, onUpdateDescription } = props;
-  const [editMode, setEditMode] = useState(!preview);
+  const {
+    mdStr,
+    editMode = false,
+    onEditModeChange,
+    loading,
+    renderSubmit,
+    onUpdateDescription,
+  } = props;
   const [markdown, setMarkdown] = useState(mdStr);
 
   const handleSave = () => {
@@ -32,6 +40,7 @@ const TaskDescriptionEditor = (props: Props) => {
     <div>
       {editMode ? (
         <MarkdownEditor
+          readOnly={loading}
           placeholder='Type description here'
           previewWidth='400px'
           value={markdown}
@@ -59,16 +68,24 @@ const TaskDescriptionEditor = (props: Props) => {
           {!!renderSubmit ? (
             renderSubmit(mdStr)
           ) : !editMode ? (
-            <Button onClick={() => setEditMode(true)}>
+            <Button onClick={() => onEditModeChange(true)}>
               <RiPencilFill />
               Edit
             </Button>
           ) : (
             <>
-              <Button variant='secondary' onClick={() => setEditMode(false)}>
+              <Button
+                variant='secondary'
+                onClick={() => onEditModeChange(false)}
+              >
                 Cancel
               </Button>
-              <Button onClick={handleSave}>Save</Button>
+              <Button onClick={handleSave}>
+                Save
+                {loading && (
+                  <RiLoader5Fill size={20} className='animate-spin' />
+                )}
+              </Button>
             </>
           )}
         </div>
