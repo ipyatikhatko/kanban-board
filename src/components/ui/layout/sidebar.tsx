@@ -33,15 +33,14 @@ function Sidebar(props: Props) {
   return (
     <aside
       className={clsx(
-        'hidden h-[100vh] flex-col items-center justify-between border border-t-0 bg-white transition-all md:flex',
+        'hidden h-[100vh] flex-col items-center justify-between border-r border-t-0 bg-white transition-all dark:bg-slate-900 md:flex',
         collapsed ? 'w-[80px]' : 'w-[250px]'
       )}
     >
       <section className='w-full'>
-        <header className='relative flex h-16  items-center justify-between border-b px-4'>
-          <h1 className='text-lg font-bold text-slate-700 lg:text-xl'>
-            看板{' '}
-            <span className='text-sm font-medium text-slate-600'>kanban</span>
+        <header className='relative flex h-16  items-center justify-between border-b px-4 dark:bg-slate-900'>
+          <h1 className='text-lg font-bold text-slate-700 dark:text-slate-500 lg:text-xl'>
+            看板 <span className='text-sm font-medium '>kanban</span>
           </h1>
           <div className='absolute -right-4'>
             <Button
