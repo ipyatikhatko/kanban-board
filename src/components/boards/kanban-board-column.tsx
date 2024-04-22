@@ -21,7 +21,6 @@ interface Props {
 
 function KanbanBoardColumn(props: Props) {
   const { column, isDragDisabled, onCreateTask } = props;
-
   const handleCreateTask = () => {
     onCreateTask(column.id);
   };
@@ -39,9 +38,9 @@ function KanbanBoardColumn(props: Props) {
           {(provided, snapshot) => (
             <div
               className={clsx(
-                'flex h-[60vh] flex-col overflow-auto rounded border border-slate-100 bg-slate-50 p-1',
+                'flex h-[60vh] flex-col overflow-auto rounded p-1',
                 {
-                  'border-slate-300 bg-slate-200': snapshot.draggingOverWith,
+                  'shadow-inner bg-slate-100': snapshot.draggingOverWith,
                 }
               )}
               {...provided.droppableProps}
@@ -49,6 +48,7 @@ function KanbanBoardColumn(props: Props) {
             >
               {column.tasks.map((task, index: number) => (
                 <KanbanBoardTask
+                  boardId={column.boardId}
                   isDragDisabled={isDragDisabled}
                   key={task.id}
                   index={index + 1}
