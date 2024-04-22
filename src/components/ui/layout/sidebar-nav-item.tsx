@@ -33,9 +33,10 @@ function SidebarNavItem(props: Props) {
       <li
         className={clsx(
           'flex w-full cursor-pointer items-center justify-start gap-4 rounded-lg px-4 py-2 transition-all',
-          'text-white opacity-50 hover:opacity-100',
+          'text-slate-500 opacity-50 hover:opacity-100 dark:text-white',
           {
-            'bg-gradient-to-br from-green-500 to-teal-400 opacity-100': active,
+            'bg-gradient-to-br from-blue-500 to-teal-500 text-white opacity-100':
+              active,
             'justify-center !px-2': collapsed,
             'flex-col !gap-2 !px-2': mobile,
           }

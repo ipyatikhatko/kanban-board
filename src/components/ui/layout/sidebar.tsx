@@ -39,7 +39,7 @@ function Sidebar(props: Props) {
     >
       <section className='w-full'>
         <header className='relative flex h-16  items-center justify-between border-b px-4 dark:bg-slate-900'>
-          <h1 className='text-lg font-bold text-slate-700 dark:text-slate-500 lg:text-xl'>
+          <h1 className='text-lg font-bold text-slate-700 dark:text-slate-50 lg:text-xl'>
             看板 <span className='text-sm font-medium '>kanban</span>
           </h1>
           <div className='absolute -right-4'>

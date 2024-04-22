@@ -31,9 +31,9 @@ export default async function RootLayout({
   return (
     <html suppressHydrationWarning lang='en'>
       <SessionProvider session={session}>
-        <Providers>
-          <body className={quicksand.className}>{children}</body>
-        </Providers>
+        <body className={quicksand.className}>
+          <Providers>{children}</Providers>
+        </body>
       </SessionProvider>
     </html>
   );
