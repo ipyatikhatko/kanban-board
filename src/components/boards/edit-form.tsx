@@ -52,7 +52,10 @@ export default function EditBoardForm({ id, values }: EditBoardFormProps) {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-8'>
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        className='space-y-8 xl:w-1/2'
+      >
         <FormField
           control={form.control}
           name='name'
