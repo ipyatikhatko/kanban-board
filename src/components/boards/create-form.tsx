@@ -80,7 +80,7 @@ export default function CreateBoardForm() {
           )}
         />
         <Button disabled={isPending} type='submit'>
-          Submit
+          Create
         </Button>
       </form>
     </Form>
