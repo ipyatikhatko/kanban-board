@@ -9,20 +9,6 @@ const DragDropContext = dynamic(
     }),
   { ssr: false }
 );
-const Droppable = dynamic(
-  () =>
-    import('react-beautiful-dnd').then((mod) => {
-      return mod.Droppable;
-    }),
-  { ssr: false }
-);
-const Draggable = dynamic(
-  () =>
-    import('react-beautiful-dnd').then((mod) => {
-      return mod.Draggable;
-    }),
-  { ssr: false }
-);
 
 import React, { useState, useTransition } from 'react';
 import {
@@ -30,11 +16,9 @@ import {
   Column as ColumnType,
   Task as TaskType,
 } from '@prisma/client';
-import { RiAddFill, RiInsertColumnRight, RiLoader5Fill } from 'react-icons/ri';
-import { Button } from '../ui/button';
+import { RiInsertColumnRight, RiLoader5Fill } from 'react-icons/ri';
 import CreateColumnDialog from '../columns/create-column-dialog';
 import CreateTaskDialog from '../tasks/create-task-dialog';
-import clsx from 'clsx';
 import { DropResult } from 'react-beautiful-dnd';
 import KanbanBoardColumn from './kanban-board-column';
 import { updateKanbanBoardFromDropResult } from '@/actions/kanban.actions';
@@ -69,10 +53,13 @@ const KanbanBoard: React.FC<KanbanBoardProps> = ({ board }) => {
   const onCreateTask = (columnId: number) => setCreateTask(columnId);
 
   return (
-    <section className='relative mt-4 flex snap-x snap-mandatory overflow-auto rounded border border-slate-200 bg-white pb-2 pr-2 pt-2 shadow-inner divide-x divide-slate-100 gap-2'>
+    <section className='relative mt-4 flex snap-x snap-mandatory gap-2 divide-x divide-slate-300/50 overflow-auto rounded bg-slate-200/50 pb-2 pr-2 pt-2 shadow-inner dark:divide-slate-600/60 dark:bg-slate-700'>
       {isPending && (
-        <div className='absolute bottom-0 backdrop-blur-[1px] left-0 top-0 flex w-full items-center justify-center bg-slate-300/40'>
-          <RiLoader5Fill size={30} className='animate-spin text-slate-500' />
+        <div className='absolute bottom-0 left-0 top-0 flex w-full items-center justify-center bg-slate-300/40 backdrop-blur-[1px]'>
+          <RiLoader5Fill
+            size={30}
+            className='animate-spin text-slate-500 dark:text-slate-50'
+          />
         </div>
       )}
 
@@ -87,7 +74,7 @@ const KanbanBoard: React.FC<KanbanBoardProps> = ({ board }) => {
         ))}
         <div
           onClick={onAddColumn}
-          className='group mb-14 ml-2 mt-10 grid min-w-40 cursor-pointer place-content-center rounded-lg border border-slate-200 bg-slate-50'
+          className='group mb-14 ml-2 mt-10 grid min-w-40 cursor-pointer place-content-center rounded-lg bg-slate-50 dark:bg-slate-600'
         >
           <span className='inline-flex flex-col items-center text-sm text-slate-400 group-hover:text-slate-500'>
             <RiInsertColumnRight size={25} />

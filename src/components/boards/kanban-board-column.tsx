@@ -26,9 +26,11 @@ function KanbanBoardColumn(props: Props) {
   };
 
   return (
-    <div className='flex min-w-[70vw] snap-start flex-col pl-2 lg:min-w-60'>
-      <div className='mb-2 flex h-8 items-center justify-between rounded border border-slate-100 bg-slate-50 px-2'>
-        <h3 className='text-md font-semibold text-slate-500'>{column.name}</h3>
+    <div className='group flex min-w-[70vw] snap-start flex-col pl-2 lg:min-w-60'>
+      <div className='mb-2 flex h-8 items-center justify-between rounded bg-slate-50 px-2 dark:bg-slate-500'>
+        <h3 className='text-md font-semibold text-slate-500 dark:text-slate-200'>
+          {column.name}
+        </h3>
         <span className='text-lg font-semibold text-slate-300'>
           {column.tasks.length}
         </span>
@@ -37,12 +39,10 @@ function KanbanBoardColumn(props: Props) {
         <Droppable droppableId={String(column.id)} type='TASK'>
           {(provided, snapshot) => (
             <div
-              className={clsx(
-                'flex h-[60vh] flex-col overflow-auto rounded p-1',
-                {
-                  'shadow-inner bg-slate-100': snapshot.draggingOverWith,
-                }
-              )}
+              className={clsx('flex h-[60vh] flex-col overflow-auto rounded', {
+                'bg-slate-100 shadow-inner dark:bg-slate-600':
+                  snapshot.draggingOverWith,
+              })}
               {...provided.droppableProps}
               ref={provided.innerRef}
             >
@@ -60,11 +60,11 @@ function KanbanBoardColumn(props: Props) {
           )}
         </Droppable>
       </div>
-      <div className='mt-4 h-10'>
+      <div className='mt-4 h-10 opacity-0 transition-opacity group-hover:opacity-100'>
         <Button
           onClick={handleCreateTask}
           className='flex w-full gap-1'
-          variant='secondary'
+          variant='ghost'
         >
           <RiAddFill size={25} />
         </Button>
