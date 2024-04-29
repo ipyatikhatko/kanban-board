@@ -5,6 +5,8 @@ import MarkdownPreview from '@uiw/react-markdown-preview';
 import { Button } from '../ui/button';
 import { RiLoader5Fill, RiMarkdownLine, RiPencilFill } from 'react-icons/ri';
 import Link from 'next/link';
+import clsx from 'clsx';
+import { josefin_sans, quicksand } from '@/lib/fonts';
 
 interface Props {
   mdStr: string;
@@ -19,9 +21,9 @@ const TaskDescriptionEditor = (props: Props) => {
   const {
     mdStr,
     editMode = false,
-    onEditModeChange,
     loading,
     renderSubmit,
+    onEditModeChange,
     onUpdateDescription,
   } = props;
   const [markdown, setMarkdown] = useState(mdStr);
@@ -36,23 +38,39 @@ const TaskDescriptionEditor = (props: Props) => {
     }
   };
 
+  const handleCancelEdit = () => {
+    setMarkdown(mdStr);
+    onEditModeChange(false);
+  };
+
   return (
     <div>
-      {editMode ? (
-        <MarkdownEditor
-          readOnly={loading}
-          placeholder='Type description here'
-          previewWidth='400px'
-          value={markdown}
-          minHeight='200px'
-          onChange={(value, viewUpdate) => setMarkdown(value)}
-        />
-      ) : (
-        <MarkdownPreview
-          className='min-h-[200px] rounded p-6'
-          source={markdown || '*No description*'}
-        />
-      )}
+      <div
+        onClick={() => onEditModeChange(true)}
+        className={clsx('rounded-md border border-transparent', {
+          'cursor-pointer hover:border-slate-200 dark:hover:border-slate-500':
+            !editMode,
+        })}
+      >
+        {editMode ? (
+          <MarkdownEditor
+            readOnly={loading}
+            placeholder='Type description here'
+            previewWidth='50%'
+            value={markdown}
+            minHeight='200px'
+            onChange={(value, viewUpdate) => setMarkdown(value)}
+          />
+        ) : (
+          <MarkdownPreview
+            className={clsx(
+              'min-h-[200px] rounded bg-white p-6 !text-slate-600 dark:bg-slate-600/50 dark:!text-slate-300',
+              quicksand.className
+            )}
+            source={markdown || '*No description*'}
+          />
+        )}
+      </div>
       <div className='mt-4 flex items-center justify-between'>
         <Link
           href='https://www.markdownguide.org/'
@@ -74,10 +92,7 @@ const TaskDescriptionEditor = (props: Props) => {
             </Button>
           ) : (
             <>
-              <Button
-                variant='secondary'
-                onClick={() => onEditModeChange(false)}
-              >
+              <Button variant='secondary' onClick={handleCancelEdit}>
                 Cancel
               </Button>
               <Button onClick={handleSave}>

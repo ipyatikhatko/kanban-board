@@ -33,7 +33,7 @@ export default function TaskPageTitle(props: Props) {
         value={value}
         onChange={(e) => setValue(e.target.value)}
         onBlur={handleUpdateTitleOnBlur}
-        className='w-full cursor-pointer rounded bg-transparent p-2 py-1 text-3xl font-bold text-slate-600 outline-none hover:bg-slate-100 focus-visible:bg-slate-100 aria-disabled:opacity-60'
+        className='w-full cursor-pointer rounded bg-transparent p-2 py-1 text-3xl font-bold text-slate-600 outline-none hover:bg-slate-200/50 focus-visible:bg-slate-200/50 aria-disabled:opacity-60 dark:text-slate-300 dark:hover:bg-slate-600/50 dark:focus-visible:bg-slate-600/50'
       />
       {loading && (
         <RiLoader5Fill
