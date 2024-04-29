@@ -12,7 +12,7 @@ function MobileNav() {
   const pathname = usePathname();
 
   return (
-    <nav className='flex items-center justify-around border-t p-2 md:hidden'>
+    <nav className='flex items-center justify-around border-t bg-slate-700 p-2 dark:bg-slate-900 md:hidden'>
       <SidebarNavItem
         mobile
         icon={RiDashboardLine}
