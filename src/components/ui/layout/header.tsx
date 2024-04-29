@@ -8,7 +8,7 @@ function Header(props: Props) {
   const {} = props;
 
   return (
-    <header className='flex h-16 border-x border-b border-l-0 px-4 dark:bg-slate-900'>
+    <header className='flex h-16 border-b border-slate-200 bg-slate-100 px-4 dark:border-slate-700/50 dark:bg-slate-800'>
       <div className='flex flex-1 items-center gap-4'>
         <div className='flex h-full items-center gap-2 px-2'>
           <RiSearch2Line size={20} className='text-slate-400' />

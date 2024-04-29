@@ -20,8 +20,8 @@ function SidebarNav(props: Props) {
   const pathname = usePathname();
 
   return (
-    <nav className='mt-10'>
-      <ul className='flex flex-col gap-2 px-4'>
+    <nav className='mt-12 w-full'>
+      <ul className='flex w-full flex-col gap-2 px-2'>
         <SidebarNavItem
           collapsed={collapsed}
           icon={RiDashboardLine}
