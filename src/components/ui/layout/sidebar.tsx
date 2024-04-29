@@ -38,7 +38,7 @@ function Sidebar(props: Props) {
   return (
     <aside
       className={clsx(
-        'hidden h-[100vh] flex-col items-center justify-between border-r border-t-0  transition-all dark:bg-slate-900 md:flex',
+        'hidden h-[100vh] flex-col items-center justify-between border-r border-t-0 bg-slate-700 transition-all dark:bg-slate-900 md:flex',
         collapsed ? 'w-[80px]' : 'w-[250px]'
       )}
     >
@@ -46,7 +46,7 @@ function Sidebar(props: Props) {
         <section className='relative w-full'>
           <header
             className={clsx(
-              'flex h-16 items-center justify-between border-b px-4 dark:bg-slate-900',
+              'flex h-16 items-center justify-between border-b border-slate-600 px-4 dark:bg-slate-900',
               {
                 '!justify-center px-0': collapsed,
               }
@@ -58,7 +58,7 @@ function Sidebar(props: Props) {
                 animate={{ opacity: collapsed ? 0 : 1 }}
                 transition={{ delay: 0.5 }}
                 exit={{ opacity: 0 }}
-                className='text-lg font-bold text-slate-700 dark:text-slate-50 lg:text-xl'
+                className='text-lg font-bold text-slate-400 dark:text-slate-50 lg:text-xl'
               >
                 看板 <span className='text-sm font-medium '>kanban</span>
               </motion.h1>
@@ -84,9 +84,6 @@ function Sidebar(props: Props) {
             'flex-col': collapsed,
           })}
         >
-          <Button variant='outline' size='icon'>
-            <RiSettings2Line />
-          </Button>
           <Button
             onClick={() => signOut({ redirect: true, callbackUrl: '/' })}
             variant='secondary'
