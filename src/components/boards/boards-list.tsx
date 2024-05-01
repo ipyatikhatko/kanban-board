@@ -12,7 +12,7 @@ async function BoardsList() {
   return (
     <>
       {!!boards.length ? (
-        <ul className='flex flex-col gap-2'>
+        <ul className='flex w-full flex-col gap-2'>
           {boards.map(({ id, name, description }) => (
             <li
               key={id}

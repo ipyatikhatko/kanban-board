@@ -74,7 +74,7 @@ const KanbanBoard: React.FC<KanbanBoardProps> = ({ board }) => {
         ))}
         <div
           onClick={onAddColumn}
-          className='group mb-14 ml-2 mt-10 grid min-w-40 cursor-pointer place-content-center rounded-lg bg-slate-50 dark:bg-slate-600'
+          className='group ml-2 grid min-w-40 cursor-pointer place-content-center rounded-lg bg-slate-50 dark:bg-slate-600'
         >
           <span className='inline-flex flex-col items-center text-sm text-slate-400 group-hover:text-slate-500'>
             <RiInsertColumnRight size={25} />
@@ -88,12 +88,14 @@ const KanbanBoard: React.FC<KanbanBoardProps> = ({ board }) => {
         open={createColumnDialog}
         onOpenChange={setCreateColumnDialog}
       />
-      <CreateTaskDialog
-        open={!!createTask}
-        columns={board.columns}
-        columnId={createTask}
-        onOpenChange={() => setCreateTask(null)}
-      />
+      {!!board.columns.length && (
+        <CreateTaskDialog
+          open={!!createTask}
+          columns={board.columns}
+          columnId={createTask}
+          onOpenChange={() => setCreateTask(null)}
+        />
+      )}
     </section>
   );
 };

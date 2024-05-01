@@ -39,7 +39,7 @@ function KanbanBoardColumn(props: Props) {
         <Droppable droppableId={String(column.id)} type='TASK'>
           {(provided, snapshot) => (
             <div
-              className={clsx('flex h-[60vh] flex-col overflow-auto rounded', {
+              className={clsx('flex h-[55vh] flex-col overflow-auto rounded', {
                 'bg-slate-100 shadow-inner dark:bg-slate-600':
                   snapshot.draggingOverWith,
               })}
