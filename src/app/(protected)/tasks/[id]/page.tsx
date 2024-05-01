@@ -25,7 +25,7 @@ export default async function TaskPage(props: PageProps) {
   return (
     <div className='flex h-full'>
       <TaskInfo task={task} />
-      <section className='h-full w-[400px] border-l bg-white'>
+      <section className='h-full w-[400px] border-l bg-white dark:bg-slate-700'>
         <div className='flex items-center gap-2 p-2 text-slate-400'>
           <RiChat1Fill size={25} />
           <h3 className='text-lg font-semibold'>Comments</h3>

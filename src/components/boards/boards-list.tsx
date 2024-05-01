@@ -12,16 +12,13 @@ async function BoardsList() {
   return (
     <>
       {!!boards.length ? (
-        <ul className='flex flex-col gap-2'>
+        <ul className='flex w-full flex-col gap-2'>
           {boards.map(({ id, name, description }) => (
             <li
               key={id}
-              className='group flex cursor-pointer overflow-hidden rounded-lg border border-transparent bg-white shadow-sm transition-colors hover:border-slate-200'
+              className='group flex cursor-pointer overflow-hidden rounded-lg border border-transparent bg-white shadow-sm transition-colors hover:border-slate-300 dark:bg-slate-700 dark:hover:border-slate-600'
             >
-              <Link
-                className='flex-1 p-4 hover:bg-slate-100'
-                href={`/boards/${id}`}
-              >
+              <Link className='flex-1 p-4' href={`/boards/${id}`}>
                 <h2 className='text-2xl'>{name}</h2>
                 <p
                   className={clsx('line-clamp-2', {
@@ -54,14 +51,14 @@ async function BoardsList() {
 }
 
 const BoardSkeletonItem = () => (
-  <li className='flex rounded-lg border border-transparent bg-slate-100 p-4 shadow-sm'>
+  <li className='flex rounded-lg border border-transparent bg-slate-100 p-4 shadow-sm dark:bg-slate-600'>
     <div className='flex-1'>
-      <div className='mb-2 h-8 w-1/4 rounded-lg bg-slate-200' />
-      <div className='h-4 w-1/3 rounded-lg bg-slate-200' />
+      <div className='mb-2 h-8 w-1/4 rounded-lg bg-slate-200 dark:bg-slate-500' />
+      <div className='h-4 w-1/3 rounded-lg bg-slate-200 dark:bg-slate-500' />
     </div>
     <div className='flex items-center gap-4'>
-      <div className='h-10 w-10 rounded-lg bg-slate-200' />
-      <div className='h-10 w-10 rounded-lg bg-slate-200' />
+      <div className='h-10 w-10 rounded-lg bg-slate-200 dark:bg-slate-500' />
+      <div className='h-10 w-10 rounded-lg bg-slate-200 dark:bg-slate-500' />
     </div>
   </li>
 );

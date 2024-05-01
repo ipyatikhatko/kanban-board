@@ -1,4 +1,4 @@
-'use client'
+'use client';
 import { Task } from '@prisma/client';
 import clsx from 'clsx';
 import dynamic from 'next/dynamic';
@@ -22,7 +22,7 @@ interface Props {
 
 function KanbanBoardTask(props: Props) {
   const { task, index, boardId, isDragDisabled } = props;
-  const router = useRouter()
+  const router = useRouter();
 
   return (
     <Draggable
@@ -38,17 +38,19 @@ function KanbanBoardTask(props: Props) {
           {...provided.draggableProps}
           {...provided.dragHandleProps}
           className={clsx(
-            'mb-2 rounded !cursor-pointer hover:border-slate-200 hover:shadow-md border border-slate-100 bg-white py-2 shadow-sm',
+            'mb-2 !cursor-pointer rounded border border-white bg-white py-1 shadow-sm hover:border-slate-200 hover:shadow-md dark:border-slate-500 dark:bg-slate-500 dark:hover:border-slate-400',
             {
               'border-slate-300 !shadow-md': snapshot.isDragging,
             }
           )}
         >
-          <h1 className='px-2 font-semibold text-slate-600'>{task.title}</h1>
-          <hr className='my-1 h-px border-0 bg-slate-100' />
+          <h1 className='px-2 font-semibold text-slate-600 dark:text-slate-200'>
+            {task.title}
+          </h1>
+          <hr className='mb-1 h-px border-0 bg-slate-100 dark:bg-slate-400/20' />
           <p
             className={clsx(
-              'line-clamp-3 overflow-hidden px-2 text-sm text-slate-500',
+              'line-clamp-3 overflow-hidden px-2 text-sm text-slate-500 dark:text-slate-400',
               {
                 'italic !text-slate-400': !task.description,
               }

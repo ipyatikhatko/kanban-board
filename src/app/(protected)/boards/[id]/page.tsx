@@ -25,13 +25,13 @@ export default async function BoardPage({ params: { id } }: BoardPageProps) {
   const { name, description, createdAt } = board;
 
   return (
-    <>
+    <div className='pr-2 lg:pr-4'>
       <BoardHeaderInfo
         name={name}
         description={description}
         createdAt={createdAt}
       />
       <KanbanBoard board={board} />
-    </>
+    </div>
   );
 }
